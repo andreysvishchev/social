@@ -1,8 +1,7 @@
 .Navbar {
   width: 20%;
-  background-color: #6377bf;
   margin-right: 10px;
-  padding: 20px;
+  padding: 20px 10px;
   box-sizing: border-box;
 }
 
@@ -11,6 +10,25 @@
 }
 
 .link {
-  color: #fff;
+  display: block;
+  color: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .1s ease-in-out;
+  padding: 10px 20px;
+  max-width: 250px;
+  width: 100%;
+  border-radius: 10px;
+
+  &.active {
+    color: #1B74E4;
+    background: #DADDE1;
+  }
 }
+
+
+
+
+
 
