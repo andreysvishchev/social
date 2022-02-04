@@ -1,12 +1,15 @@
-.Profile {
-  width: 80%;
-  box-sizing: border-box;
+.profile {
+  &__bg {
+    height: 300px;
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
 }
 
-.bg {
-  height: 300px;
-  display: block;
-  width: 100%;
-  object-fit: cover;
-}
+
+
+
 
