@@ -3,6 +3,7 @@ import style from './Message.module.scss'
 
 
 type MessageType = {
+    id?: number
     text: string
 }
 

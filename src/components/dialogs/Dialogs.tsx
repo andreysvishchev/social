@@ -2,30 +2,33 @@ import React from "react";
 import style from './Dialogs.module.scss'
 import {Dialog} from "./dialog/Dialog";
 import {Message} from "./message/Message";
+import {DialogsDataType, MessageDataType} from "../../App";
 
 
+type DialogsType = {
+    MessageData: MessageDataType[]
+    DialogsData: DialogsDataType[]
+}
+
+export const Dialogs = (props: DialogsType) => {
 
 
-export const Dialogs = () => {
     return (
 
         <div className={style.dialogs}>
-            <div className={style.dialogs__items}>
+            <div className={style.items}>
 
-                        <Dialog id="1" name="Andrey"/>
+                {
+                   props.DialogsData.map((d, i) => <Dialog key={i} id={d.id} name={d.name}/>)
+                }
 
 
-
-                <Dialog id="2" name="Dasha"/>
-                <Dialog id="3" name="Oleg"/>
-                <Dialog id="4" name="Anton"/>
 
             </div>
             <div className={style.messages}>
-               <Message text="Привет как дела?"/>
-               <Message text="Привет как дела?"/>
-               <Message text="Привет как дела?"/>
-               <Message text="Привет как дела?"/>
+                {
+                    props.MessageData.map((m, i) => <Message key={m.id} text={m.text}/>)
+                }
             </div>
         </div>
     )

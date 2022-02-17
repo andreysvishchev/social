@@ -9,7 +9,24 @@ import {Settings} from "./components/settings/Settings";
 import {Route, Routes, BrowserRouter} from "react-router-dom";
 import './App.scss';
 
-function App() {
+
+type AppType = {
+    messageData: MessageDataType[]
+    dialogsData: DialogsDataType[]
+}
+
+export type MessageDataType = {
+    id: number
+    text: string
+}
+
+export type DialogsDataType = {
+    id: number
+    name: string
+}
+
+
+function App(props: AppType) {
     return (
         <BrowserRouter>
             <div className="App">
@@ -19,7 +36,12 @@ function App() {
                     <div className="App__content">
                         <Routes>
                             <Route path='/Profile' element={<Profile/>}/>
-                            <Route path="/Dialogs/*" element={<Dialogs />} />
+                            <Route path="/Dialogs/*"
+                                   element={
+                                       <Dialogs
+                                           MessageData={props.messageData}
+                                           DialogsData={props.dialogsData}/>
+                                   }/>
                             <Route path='/Music' element={<Music/>}/>
                             <Route path='/News' element={<News/>}/>
                             <Route path='/Settings' element={<Settings/>}/>
