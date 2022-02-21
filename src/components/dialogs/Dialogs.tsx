@@ -2,16 +2,16 @@ import React from "react";
 import style from './Dialogs.module.scss'
 import {Dialog} from "./dialog/Dialog";
 import {Message} from "./message/Message";
-import {DialogsDataType, MessageDataType} from "../../App";
+import {DialogsType, MessageType} from "../../redux/state";
 
 
-type DialogsType = {
-    MessageData: MessageDataType[]
-    DialogsData: DialogsDataType[]
+type DialogsPropsType = {
+    MessageData: MessageType[]
+    DialogsData: DialogsType[]
+
 }
 
-export const Dialogs = (props: DialogsType) => {
-
+export const Dialogs = (props: DialogsPropsType) => {
 
     return (
 
@@ -21,8 +21,6 @@ export const Dialogs = (props: DialogsType) => {
                 {
                    props.DialogsData.map((d, i) => <Dialog key={i} id={d.id} name={d.name}/>)
                 }
-
-
 
             </div>
             <div className={style.messages}>
