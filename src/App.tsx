@@ -8,8 +8,19 @@ import {News} from "./components/news/News";
 import {Settings} from "./components/settings/Settings";
 import {Route, Routes, BrowserRouter} from "react-router-dom";
 import './App.scss';
+import {StateType} from "./redux/state";
 
-function App() {
+
+type AppType = {
+    state: StateType
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+    addMessage: () => void
+    updateNewMessageText: (newText: string) => void
+}
+
+
+function App(props: AppType) {
     return (
         <BrowserRouter>
             <div className="App">
@@ -18,8 +29,24 @@ function App() {
                     <Navbar/>
                     <div className="App__content">
                         <Routes>
-                            <Route path='/Profile' element={<Profile/>}/>
-                            <Route path="/Dialogs/*" element={<Dialogs />} />
+                            <Route path='/Profile'
+                                   element={
+                                       <Profile
+                                           PostsData={props.state.profilePage}
+                                           addPost={props.addPost}
+                                           updateNewPostText={props.updateNewPostText}
+                                       />
+                                   }/>
+                            <Route path="/Dialogs/*"
+                                   element={
+                                       <Dialogs
+                                           MessageData={props.state.messagePage.message}
+                                           DialogsData={props.state.messagePage.dialogs}
+                                           newMessageText={props.state.messagePage.newMessageText}
+                                           addMessage={props.addMessage}
+                                           updateNewMessageText={props.updateNewMessageText}
+                                       />
+                                   }/>
                             <Route path='/Music' element={<Music/>}/>
                             <Route path='/News' element={<News/>}/>
                             <Route path='/Settings' element={<Settings/>}/>

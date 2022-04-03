@@ -6,7 +6,7 @@ export const ProfileInfo = () => {
         <div className={style.profileInfo}>
             <img src="" alt=""/>
             <div className={style.profileInfo__descr}>
-                andrey
+               Андрей Свищёв
             </div>
         </div>
 
