@@ -5,7 +5,7 @@ import avatar from './../../../img/1.jpg'
 
 
 type DialogType = {
-    id: number
+    id: string
     name: string
 }
 

@@ -1,50 +1,69 @@
 import style from './MyPosts.module.scss'
 import {Post} from "./post/Post";
-import {PostsType, state} from "../../../redux/state";
-import React, {ChangeEvent, useState} from 'react';
-import {v1} from "uuid";
+import {PostsType} from "../../../redux/state";
+import React, {ChangeEvent, KeyboardEvent, useRef, useState} from 'react';
 
 
 type PostsDataType = {
     PostsData: PostsType[]
+    addPost: () => void
+    newPostText: string
+    updateNewPostText: (newText: string)=>void
 }
 
 export const MyPosts = (props: PostsDataType) => {
 
-    let [posts, setPosts] = useState<PostsType[]>(props.PostsData)
+    /*    let [posts, setPosts] = useState<PostsType[]>(props.PostsData)*/
 
-    let [value, setValue] = useState<string>('')
+    /*    let [value, setValue] = useState<string>('')
 
-    let addPost = (text: string) => {
+        let addPost = (text: string) => {
+            let post = {id: v1(), text: text, likesCount: 0}
+            let newPost = [post, ...posts]
+            setPosts(newPost)
+        }
 
-        let post = {id: v1(), text: text, likesCount: 0}
-        let newPost = [post, ...posts]
-        setPosts(newPost)
+        const onClickHandler = () => {
+            addPost(value)
+            setValue('')
+        }
+
+        const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+            setValue(event.currentTarget.value)
+        }
+
+        const onPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+            if (e.key === 'Enter') {
+                addPost(value)
+                setValue('')
+            }
+        }*/
+
+    let postsMessage = props.PostsData.map(el => {
+        return (
+            <Post key={el.id} id={el.id} text={el.text} likes={el.likesCount}/>
+        )
+    })
+
+    let newPostElement = React.useRef() as React.MutableRefObject<HTMLTextAreaElement>
+
+    const addPost = () => {
+        props.addPost()
     }
-
-    const onClickHandler = () => {
-        addPost(value)
-     setValue('')
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value)
     }
-
-    const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setValue(event.currentTarget.value)
-    }
-
 
     return (
         <div className={style.myPosts}>
-
-
-            <textarea className={style.textarea} onChange={onChangeHandler} value={value}/>
-            <button className={style.button} onClick={onClickHandler}>Add Post</button>
-
+            <textarea ref={newPostElement}
+                      className={style.textarea}
+                      value={props.newPostText}
+                      onChange={onChangeHandler}/>
+            <button className={style.button} onClick={addPost}>Добавить запись</button>
             <h3 className={style.myPosts__title}>Мои посты</h3>
 
-
-            {
-                posts.map((p, i) => <Post key={i} id={p.id} text={p.text} likes={p.likesCount}/>)
-            }
+            {postsMessage}
 
 
         </div>

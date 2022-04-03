@@ -3,10 +3,12 @@ import {MyPosts} from "./myPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import React from "react";
 import bg from "../../img/bg.jpg";
-import {PostsType, ProfilePageType} from "../../redux/state";
+import {ProfilePageType} from "../../redux/state";
 
 type ProfileType = {
     PostsData: ProfilePageType
+    addPost: ()=> void
+    updateNewPostText: (newText: string)=>void
 }
 
 export const Profile = (props: ProfileType) => {
@@ -15,7 +17,12 @@ export const Profile = (props: ProfileType) => {
             <img src={bg} alt="" className={style.profile__bg}/>
             <div className={style.profile__inner}>
                 <ProfileInfo/>
-                <MyPosts PostsData={props.PostsData.posts}/>
+                <MyPosts
+                    PostsData={props.PostsData.posts}
+                    addPost={props.addPost}
+                    newPostText={props.PostsData.newPostText}
+                    updateNewPostText={props.updateNewPostText}
+                />
             </div>
 
         </div>
