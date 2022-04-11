@@ -6,17 +6,20 @@ import {Dialogs} from "./components/dialogs/Dialogs";
 import {Music} from "./components/music/Music";
 import {News} from "./components/news/News";
 import {Settings} from "./components/settings/Settings";
-import {Route, Routes, BrowserRouter} from "react-router-dom";
+import {Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import './App.scss';
 import {StoreType} from "./redux/state";
 
 
 type AppType = {
-   store: StoreType
+    store: StoreType
 }
+
+const ProfilePath = './Profile'
 
 function App(props: AppType) {
     const state = props.store.getState()
+
 
     return (
         <BrowserRouter>
@@ -26,15 +29,13 @@ function App(props: AppType) {
                     <Navbar/>
                     <div className="App__content">
                         <Routes>
-                            <Route
-                                path='/Profile'
-                                   element={
-                                       <Profile
-                                           PostsData={state.profilePage}
-                                           addPost={props.store.addPost.bind(props.store)}
-                                           updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                                       />
-                                   }/>
+                            <Route path={'/'} element={<Navigate to={ProfilePath}/>}/>
+
+                        {/*    <Profile
+                                PostsData={state.profilePage}
+                                addPost={props.store.addPost.bind(props.store)}
+                                updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                            />*/}
                             <Route path="/Dialogs/*"
                                    element={
                                        <Dialogs
