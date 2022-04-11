@@ -31,60 +31,73 @@ export type PostsType = {
     likesCount: number
 }
 
-let rerenderEntireTree = () => {
-
+export type StoreType = {
+    _state: StateType
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+    addMessage: ()=> void
+    updateNewMessageText: (newText: string) => void
+    getState: () => StateType
+    _callSubscriber: () => void
+    subscribe: (observer: () => void) => void
 }
 
-export const subscribe = (observer: () => void) => {
-    rerenderEntireTree = observer
-}
-
-export const addPost = () => {
-    let newPost = {id: v1(), text: state.profilePage.newPostText, likesCount: 0}
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newPostText = ''
-    rerenderEntireTree()
-}
-
-export const updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText
-    rerenderEntireTree()
-}
-
-export const addMessage = () => {
-    let newMessage = {id: v1(), text: state.messagePage.newMessageText}
-    state.messagePage.message.push(newMessage)
-    state.messagePage.newMessageText = ''
-    rerenderEntireTree()
-}
-
-export const updateNewMessageText = (newText: string) => {
-    state.messagePage.newMessageText = newText
-    rerenderEntireTree()
-}
-
-export const state: StateType = {
-    profilePage: {
-        posts: [
-            {id: v1(), text: 'Мой первый пост', likesCount: 3},
-            {id: v1(), text: 'Мой второй пост', likesCount: 11},
-        ],
-        newPostText: ''
+let store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: v1(), text: 'Мой первый пост', likesCount: 3},
+                {id: v1(), text: 'Мой второй пост', likesCount: 11},
+            ],
+            newPostText: ''
+        },
+        messagePage: {
+            dialogs: [
+                {id: v1(), name: 'Антон'},
+                {id: v1(), name: 'Андрей'},
+                {id: v1(), name: 'Лена'},
+                {id: v1(), name: 'Стас'}
+            ],
+            message: [
+                {id: v1(), text: 'Привет!'},
+                {id: v1(), text: 'Привет, как дела?'},
+                {id: v1(), text: 'Привет!'},
+                {id: v1(), text: 'Привет!'},
+            ],
+            newMessageText: ''
+        }
     },
-    messagePage: {
-        dialogs: [
-            {id: v1(), name: 'Антон'},
-            {id: v1(), name: 'Андрей'},
-            {id: v1(), name: 'Лена'},
-            {id: v1(), name: 'Стас'}
-        ],
-        message: [
-            {id: v1(), text: 'Привет!'},
-            {id: v1(), text: 'Привет, как дела?'},
-            {id: v1(), text: 'Привет!'},
-            {id: v1(), text: 'Привет!'},
-        ],
-        newMessageText: ''
+    getState () {
+        return this._state;
+    },
+    _callSubscriber() {
+        console.log('state changed')
+    },
+    addPost() {
+        let newPost = {id: v1(), text:  this._state.profilePage.newPostText, likesCount: 0}
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = ''
+        this._callSubscriber()
+    },
+    updateNewPostText (newText: string) {
+        this._state.profilePage.newPostText = newText
+        this._callSubscriber()
+    },
+    addMessage ()  {
+        let newMessage = {id: v1(), text: this._state.messagePage.newMessageText}
+        this._state.messagePage.message.push(newMessage)
+        this._state.messagePage.newMessageText = ''
+        this._callSubscriber()
+    },
+    updateNewMessageText(newText: string) {
+        this._state.messagePage.newMessageText = newText
+        this._callSubscriber()
+    },
+    subscribe (observer: () => void) {
+        this._callSubscriber = observer
     }
+
 }
+
+export  default store
 
