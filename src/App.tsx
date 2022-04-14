@@ -6,45 +6,48 @@ import {Dialogs} from "./components/dialogs/Dialogs";
 import {Music} from "./components/music/Music";
 import {News} from "./components/news/News";
 import {Settings} from "./components/settings/Settings";
-import {Route, Routes, BrowserRouter} from "react-router-dom";
+import {Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import './App.scss';
-import {StateType} from "./redux/state";
+import {ActionsType, StoreType} from "./redux/state";
 
 
 type AppType = {
-    state: StateType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
-    addMessage: () => void
-    updateNewMessageText: (newText: string) => void
+   store: StoreType
+    dispatch: (action: ActionsType) => void
 }
 
+const ProfilePath = './Profile'
 
 function App(props: AppType) {
+    const state = props.store.getState()
+
+
     return (
-        <BrowserRouter>
+        <BrowserRouter >
             <div className="App">
                 <Header/>
                 <div className="App__inner">
                     <Navbar/>
                     <div className="App__content">
                         <Routes>
-                            <Route path='/Profile'
+                            <Route path='/' element={<Navigate to={ProfilePath}/>} />
+                            <Route
+                                path='/Profile'
                                    element={
                                        <Profile
-                                           PostsData={props.state.profilePage}
-                                           addPost={props.addPost}
-                                           updateNewPostText={props.updateNewPostText}
+                                           PostsData={state.profilePage}
+                                           addPost={props.dispatch}
+                                           updateNewPostText={props.dispatch}
                                        />
                                    }/>
                             <Route path="/Dialogs/*"
                                    element={
                                        <Dialogs
-                                           MessageData={props.state.messagePage.message}
-                                           DialogsData={props.state.messagePage.dialogs}
-                                           newMessageText={props.state.messagePage.newMessageText}
-                                           addMessage={props.addMessage}
-                                           updateNewMessageText={props.updateNewMessageText}
+                                           MessageData={state.messagePage.message}
+                                           DialogsData={state.messagePage.dialogs}
+                                           newMessageText={state.messagePage.newMessageText}
+                                           addMessage={props.dispatch}
+                                           updateNewMessageText={props.dispatch}
                                        />
                                    }/>
                             <Route path='/Music' element={<Music/>}/>

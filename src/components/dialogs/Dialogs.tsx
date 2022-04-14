@@ -2,14 +2,14 @@ import React, {ChangeEvent, FormEvent, useState} from "react";
 import style from './Dialogs.module.scss'
 import {Dialog} from "./dialog/Dialog";
 import {Message} from "./message/Message";
-import {DialogsType, MessageType} from "../../redux/state";
+import {ActionsType, DialogsType, MessageType} from "../../redux/state";
 
 
 type DialogsPropsType = {
     MessageData: MessageType[]
     DialogsData: DialogsType[]
-    addMessage: () => void
-    updateNewMessageText: (newText: string) => void
+    addMessage: (action: ActionsType)=> void
+    updateNewMessageText: (action: ActionsType)=> void
     newMessageText: string
 }
 
@@ -30,11 +30,12 @@ export const Dialogs = (props: DialogsPropsType) => {
     let newMessageElement = React.createRef() as React.MutableRefObject<HTMLTextAreaElement>
 
     const sendMessage = () => {
-        props.addMessage()
+        props.addMessage({type: "ADD-MESSAGE"})
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageText(e.currentTarget.value)
+    const onMessageChange = () => {
+        let text = newMessageElement.current.value
+        props.updateNewMessageText({type: "UPDATE-NEW-MESSAGE-TEXT", newText: text})
     }
 
 
@@ -46,7 +47,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={style.messages}>
                 {messageList}
                 <div className={style.addMessage}>
-                    <textarea ref={newMessageElement} value={props.newMessageText} className={style.textarea} onChange={onChangeHandler}/>
+                    <textarea ref={newMessageElement} value={props.newMessageText} className={style.textarea} onChange={onMessageChange}/>
                     <button onClick={sendMessage} className={style.button}>Отправить сообщение</button>
                 </div>
             </div>
