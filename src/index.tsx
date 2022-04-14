@@ -10,6 +10,7 @@ const rerenderEntireTree = () => {
         <React.StrictMode>
             <App
                 store={store}
+                dispatch={store.dispatch.bind(store)}
             />
         </React.StrictMode>,
         document.getElementById('root')

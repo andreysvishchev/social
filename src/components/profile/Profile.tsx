@@ -3,12 +3,12 @@ import {MyPosts} from "./myPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import React from "react";
 import bg from "../../img/bg.jpg";
-import {ProfilePageType} from "../../redux/state";
+import {ActionsType, ProfilePageType} from "../../redux/state";
 
 type ProfileType = {
     PostsData: ProfilePageType
-    addPost: ()=> void
-    updateNewPostText: (newText: string)=>void
+    addPost: (action: ActionsType)=> void
+    updateNewPostText: (action: ActionsType)=> void
 }
 
 export const Profile = (props: ProfileType) => {
