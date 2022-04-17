@@ -17,8 +17,9 @@ const rerenderEntireTree = () => {
     );
 }
 
+rerenderEntireTree()
 
 store.subscribe(rerenderEntireTree)
-rerenderEntireTree()
+
 
 
