@@ -1,9 +1,9 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React from "react";
 import style from './Dialogs.module.scss'
 import {Dialog} from "./dialog/Dialog";
 import {Message} from "./message/Message";
 import {ActionsType, DialogsType, MessageType} from "../../redux/state";
-
+import {addMessageAC, updateMessageTextAC} from "../../redux/dialogsReducer";
 
 type DialogsPropsType = {
     MessageData: MessageType[]
@@ -30,14 +30,13 @@ export const Dialogs = (props: DialogsPropsType) => {
     let newMessageElement = React.createRef() as React.MutableRefObject<HTMLTextAreaElement>
 
     const sendMessage = () => {
-        props.addMessage({type: "ADD-MESSAGE"})
+        props.addMessage(addMessageAC())
     }
 
     const onMessageChange = () => {
         let text = newMessageElement.current.value
-        props.updateNewMessageText({type: "UPDATE-NEW-MESSAGE-TEXT", newText: text})
+        props.updateNewMessageText(updateMessageTextAC(text))
     }
-
 
     return (
         <div className={style.inner}>

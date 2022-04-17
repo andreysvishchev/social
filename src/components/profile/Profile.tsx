@@ -12,6 +12,7 @@ type ProfileType = {
 }
 
 export const Profile = (props: ProfileType) => {
+
     return (
         <div className={style.profile}>
             <img src={bg} alt="" className={style.profile__bg}/>
@@ -19,8 +20,8 @@ export const Profile = (props: ProfileType) => {
                 <ProfileInfo/>
                 <MyPosts
                     PostsData={props.PostsData.posts}
-                    addPost={props.addPost}
                     newPostText={props.PostsData.newPostText}
+                    addPost={props.addPost}
                     updateNewPostText={props.updateNewPostText}
                 />
             </div>

@@ -1,7 +1,8 @@
 import style from './MyPosts.module.scss'
 import {Post} from "./post/Post";
-import {ActionsType, PostsType} from "../../../redux/state";
+import {ActionsType,  PostsType} from "../../../redux/state";
 import React from 'react';
+import {addPostAC, updatePostTextAC} from "../../../redux/profilerReducer";
 
 
 type PostsDataType = {
@@ -13,7 +14,6 @@ type PostsDataType = {
 
 export const MyPosts = (props: PostsDataType) => {
 
-
     let postsMessage = props.PostsData.map(el => {
         return (
             <Post key={el.id} id={el.id} text={el.text} likes={el.likesCount}/>
@@ -23,11 +23,11 @@ export const MyPosts = (props: PostsDataType) => {
     let newPostElement = React.useRef() as React.MutableRefObject<HTMLTextAreaElement>
 
     const addPost = () => {
-        props.addPost({type: "ADD-POST"})
+        props.addPost(addPostAC())
     }
     const onPostChange = () => {
         let text = newPostElement.current.value;
-        props.updateNewPostText({type: "UPDATE-NEW-POST-TEXT", newText: text})
+        props.updateNewPostText(updatePostTextAC(text))
     }
 
     return (

@@ -12,42 +12,45 @@ import {ActionsType, StoreType} from "./redux/state";
 
 
 type AppType = {
-   store: StoreType
+    store: StoreType
     dispatch: (action: ActionsType) => void
 }
 
 const ProfilePath = './Profile'
 
 function App(props: AppType) {
-    const state = props.store.getState()
 
+    const state = props.store.getState()
+    const dispatch = props.dispatch
+    const profilePage = state.profilePage
+    const messagePage = state.messagePage
 
     return (
-        <BrowserRouter >
+        <BrowserRouter>
             <div className="App">
                 <Header/>
                 <div className="App__inner">
                     <Navbar/>
                     <div className="App__content">
                         <Routes>
-                            <Route path='/' element={<Navigate to={ProfilePath}/>} />
+                            <Route path='/' element={<Navigate to={ProfilePath}/>}/>
                             <Route
                                 path='/Profile'
-                                   element={
-                                       <Profile
-                                           PostsData={state.profilePage}
-                                           addPost={props.dispatch}
-                                           updateNewPostText={props.dispatch}
-                                       />
-                                   }/>
+                                element={
+                                    <Profile
+                                        PostsData={profilePage}
+                                        addPost={dispatch}
+                                        updateNewPostText={dispatch}
+                                    />
+                                }/>
                             <Route path="/Dialogs/*"
                                    element={
                                        <Dialogs
-                                           MessageData={state.messagePage.message}
-                                           DialogsData={state.messagePage.dialogs}
-                                           newMessageText={state.messagePage.newMessageText}
-                                           addMessage={props.dispatch}
-                                           updateNewMessageText={props.dispatch}
+                                           MessageData={messagePage.message}
+                                           DialogsData={messagePage.dialogs}
+                                           newMessageText={messagePage.newMessageText}
+                                           addMessage={dispatch}
+                                           updateNewMessageText={dispatch}
                                        />
                                    }/>
                             <Route path='/Music' element={<Music/>}/>
