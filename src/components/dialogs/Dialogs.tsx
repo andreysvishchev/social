@@ -1,27 +1,27 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import style from './Dialogs.module.scss'
 import {Dialog} from "./dialog/Dialog";
 import {Message} from "./message/Message";
-import {ActionsType, DialogsType, MessageType} from "../../redux/state";
-import {addMessageAC, updateMessageTextAC} from "../../redux/dialogsReducer";
+import {DialogsPageType, DialogsType, MessageType} from "../../redux/store";
 
-type DialogsPropsType = {
-    MessageData: MessageType[]
-    DialogsData: DialogsType[]
-    addMessage: (action: ActionsType)=> void
-    updateNewMessageText: (action: ActionsType)=> void
-    newMessageText: string
+type PropsType = {
+    dialogsPage: DialogsPageType
+    updateNewMessageBody: (body: string) => void
+    addMessage: () => void
 }
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs = (props: PropsType) => {
 
-    const dialogList = props.DialogsData.map(el => {
+
+    let state = props.dialogsPage
+
+    const dialogList = state.dialogs.map(el => {
         return (
             <Dialog key={el.id} id={el.id} name={el.name}/>
         )
     })
 
-    const messageList = props.MessageData.map(el => {
+    const messageList = state.message.map(el => {
         return (
             <Message key={el.id} id={el.id} text={el.text}/>
         )
@@ -30,12 +30,12 @@ export const Dialogs = (props: DialogsPropsType) => {
     let newMessageElement = React.createRef() as React.MutableRefObject<HTMLTextAreaElement>
 
     const sendMessage = () => {
-        props.addMessage(addMessageAC())
+        props.addMessage()
     }
 
-    const onMessageChange = () => {
-        let text = newMessageElement.current.value
-        props.updateNewMessageText(updateMessageTextAC(text))
+    const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let body = e.target.value
+        props.updateNewMessageBody(body)
     }
 
     return (
@@ -46,7 +46,9 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={style.messages}>
                 {messageList}
                 <div className={style.addMessage}>
-                    <textarea ref={newMessageElement} value={props.newMessageText} className={style.textarea} onChange={onMessageChange}/>
+                    <textarea ref={newMessageElement} placeholder={'Напишите сообщение...'}
+                              value={props.dialogsPage.newMessageText}
+                              className={style.textarea} onChange={onMessageChange}/>
                     <button onClick={sendMessage} className={style.button}>Отправить сообщение</button>
                 </div>
             </div>

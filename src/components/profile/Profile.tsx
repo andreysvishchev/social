@@ -1,28 +1,28 @@
 import style from './Profile.module.scss'
-import {MyPosts} from "./myPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import React from "react";
 import bg from "../../img/bg.jpg";
-import {ActionsType, ProfilePageType} from "../../redux/state";
+import {ActionsType, ProfilePageType, StoreType} from "../../redux/store";
+import {MyPostsContainer} from "./myPosts/MyPostsContainer";
 
-type ProfileType = {
-    PostsData: ProfilePageType
-    addPost: (action: ActionsType)=> void
-    updateNewPostText: (action: ActionsType)=> void
+type PropsType = {
+   store: StoreType
 }
 
-export const Profile = (props: ProfileType) => {
+export const Profile = (props: PropsType) => {
+
+    const state = props.store.getState()
+    const postData = state.profilePage
+    const dispatch = props.store.dispatch.bind(props.store)
 
     return (
         <div className={style.profile}>
             <img src={bg} alt="" className={style.profile__bg}/>
             <div className={style.profile__inner}>
                 <ProfileInfo/>
-                <MyPosts
-                    PostsData={props.PostsData.posts}
-                    newPostText={props.PostsData.newPostText}
-                    addPost={props.addPost}
-                    updateNewPostText={props.updateNewPostText}
+                <MyPostsContainer
+                    PostsData={postData}
+                    dispatch={dispatch}
                 />
             </div>
 

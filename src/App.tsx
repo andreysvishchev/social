@@ -8,22 +8,19 @@ import {News} from "./components/news/News";
 import {Settings} from "./components/settings/Settings";
 import {Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import './App.scss';
-import {ActionsType, StoreType} from "./redux/state";
+import {StoreType} from "./redux/store";
+import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 
 
 type AppType = {
     store: StoreType
-    dispatch: (action: ActionsType) => void
 }
 
 const ProfilePath = './Profile'
 
 function App(props: AppType) {
 
-    const state = props.store.getState()
-    const dispatch = props.dispatch
-    const profilePage = state.profilePage
-    const messagePage = state.messagePage
+
 
     return (
         <BrowserRouter>
@@ -38,19 +35,14 @@ function App(props: AppType) {
                                 path='/Profile'
                                 element={
                                     <Profile
-                                        PostsData={profilePage}
-                                        addPost={dispatch}
-                                        updateNewPostText={dispatch}
+                                    store={props.store}
+
                                     />
                                 }/>
                             <Route path="/Dialogs/*"
                                    element={
-                                       <Dialogs
-                                           MessageData={messagePage.message}
-                                           DialogsData={messagePage.dialogs}
-                                           newMessageText={messagePage.newMessageText}
-                                           addMessage={dispatch}
-                                           updateNewMessageText={dispatch}
+                                       <DialogsContainer
+                                           store={props.store}
                                        />
                                    }/>
                             <Route path='/Music' element={<Music/>}/>

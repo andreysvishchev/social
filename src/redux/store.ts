@@ -4,10 +4,10 @@ import {dialogsReducer} from "./dialogsReducer";
 
 export type StateType = {
     profilePage: ProfilePageType
-    messagePage: MessagePageType
+    dialogsPage: DialogsPageType
 }
 
-export type MessagePageType = {
+export type DialogsPageType = {
     message: MessageType[]
     dialogs: DialogsType[]
     newMessageText: string
@@ -68,7 +68,7 @@ let store: StoreType = {
             ],
             newPostText: ''
         },
-        messagePage: {
+        dialogsPage: {
             dialogs: [
                 {id: v1(), name: 'Антон'},
                 {id: v1(), name: 'Андрей'},
@@ -95,7 +95,7 @@ let store: StoreType = {
     },
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.messagePage = dialogsReducer(this._state.messagePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._callSubscriber()
     }
 }
