@@ -1,49 +1,62 @@
-import { ActionsType, DialogsPageType } from "./store";
-import { v1 } from "uuid";
+import {v1} from "uuid";
+import {ActionsType} from "./store";
 
-let initialState = {
-  dialogs: [
-    { id: v1(), name: "Антон" },
-    { id: v1(), name: "Андрей" },
-    { id: v1(), name: "Лена" },
-    { id: v1(), name: "Стас" },
-  ],
-  message: [
-    { id: v1(), text: "Привет!" },
-    { id: v1(), text: "Привет, как дела?" },
-    { id: v1(), text: "Привет!" },
-    { id: v1(), text: "Привет!" },
-  ],
-  newMessageText: "",
+type MessageType = {
+    id: string;
+    text: string;
 };
 
-export const dialogsReducer = (
-  state: DialogsPageType = initialState,
-  action: ActionsType
-) => {
-  switch (action.type) {
-    case "SEND-MESSAGE":
-      let newMessage = { id: v1(), text: state.newMessageText };
-      state.message.push(newMessage);
-      state.newMessageText = "";
-      return state;
-    case "UPDATE-NEW-MESSAGE-TEXT":
-      state.newMessageText = action.newText;
-      return state;
-    default:
-      return state;
-  }
+type DialogsType = {
+    id: string;
+    name: string;
+};
+
+export type InitialStateType = {
+    dialogs: DialogsType []
+    message: MessageType []
+    newMessageText: string
+}
+let initialState: InitialStateType = {
+    dialogs: [
+        {id: v1(), name: "Антон"},
+        {id: v1(), name: "Андрей"},
+        {id: v1(), name: "Лена"},
+        {id: v1(), name: "Стас"},
+        {id: v1(), name: "Даша"},
+
+    ],
+    message: [
+        {id: v1(), text: "Привет!"},
+        {id: v1(), text: "Привет, как дела?"},
+        {id: v1(), text: "Привет!"},
+        {id: v1(), text: "Привет!"},
+    ],
+    newMessageText: "",
+};
+
+export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+    switch (action.type) {
+        case "SEND-MESSAGE": {
+            let newMessage = {id: v1(), text: state.newMessageText};
+            return {...state, message: [...state.message, newMessage], newMessageText: ''}
+        }
+        case "UPDATE-NEW-MESSAGE-TEXT": {
+            return {...state, newMessageText: action.newText}
+        }
+        default:
+            return state;
+    }
 };
 
 export const sendMessageAC = (): ActionsType => {
-  return {
-    type: "SEND-MESSAGE",
-  };
+    return {
+        type: "SEND-MESSAGE",
+    };
 };
 
 export const updateMessageTextAC = (text: string): ActionsType => {
-  return {
-    type: "UPDATE-NEW-MESSAGE-TEXT",
-    newText: text,
-  };
+    return {
+        type: "UPDATE-NEW-MESSAGE-TEXT",
+        newText: text,
+    };
 };

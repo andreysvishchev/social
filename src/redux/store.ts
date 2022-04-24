@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { profileReducer } from "./profilerReducer";
+import { profileReducer } from "./profileReducer";
 import { dialogsReducer } from "./dialogsReducer";
 
 export type StateType = {
@@ -13,22 +13,22 @@ export type DialogsPageType = {
   newMessageText: string;
 };
 
-export type ProfilePageType = {
+type ProfilePageType = {
   newPostText: string;
   posts: PostsType[];
 };
 
-export type MessageType = {
+type MessageType = {
   id: string;
   text: string;
 };
 
-export type DialogsType = {
+type DialogsType = {
   id: string;
   name: string;
 };
 
-export type PostsType = {
+type PostsType = {
   id: string;
   text: string;
   likesCount: number;

@@ -1,21 +1,15 @@
 import style from './MyPosts.module.scss'
 import {Post} from "./post/Post";
-import {ProfilePageType} from "../../../redux/store";
 import React from 'react';
+import {ProfilePageType} from "./MyPostsContainer";
 
 
-type PropsType = {
-    postsData: ProfilePageType
-    updateNewPostText: (text: string) => void
-    addPost: () => void
-}
+export const MyPosts = (props: ProfilePageType) => {
 
-export const MyPosts = (props: PropsType) => {
+    const posts = props.profilePage.posts
+    const newPostText = props.profilePage.newPostText
 
-    const postsData = props.postsData.posts
-    const newPostText = props.postsData.newPostText
-
-    let postsMessage = postsData.map(el => {
+    let postsMessage = posts.map(el => {
         return (
             <Post key={el.id} id={el.id} text={el.text} likes={el.likesCount}/>
         )
@@ -28,7 +22,7 @@ export const MyPosts = (props: PropsType) => {
     }
     const onPostChange = () => {
         let text = newPostElement.current.value;
-        props.updateNewPostText(text)
+        props.onPostChange(text)
     }
 
     return (
