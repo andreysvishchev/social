@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType} from "./store";
+import {ActionsType} from "./redux-store";
 
 type MessageType = {
     id: string;
@@ -46,6 +46,14 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
         default:
             return state;
     }
+};
+
+export type SendMessageType = {
+    type: "SEND-MESSAGE";
+};
+export type UpdateMessageTextType = {
+    type: "UPDATE-NEW-MESSAGE-TEXT";
+    newText: string;
 };
 
 export const sendMessageAC = (): ActionsType => {

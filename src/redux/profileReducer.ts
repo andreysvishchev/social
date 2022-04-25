@@ -1,5 +1,6 @@
-import {ActionsType} from "./store";
+
 import {v1} from "uuid";
+import {ActionsType} from "./redux-store";
 
 type PostsType = {
     id: string;
@@ -33,6 +34,15 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             return state
     }
 }
+
+export type AddPostType = {
+    type: "ADD-POST";
+};
+
+export type UpdatePostTextType = {
+    type: "UPDATE-NEW-POST-TEXT";
+    newText: string;
+};
 
 export let addPostAC = (): ActionsType => {
     return {

@@ -8,6 +8,8 @@ import {Settings} from "./components/settings/Settings";
 import {Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import './App.scss';
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
+import {Users} from "./components/users/Users";
+import {UsersContainer} from "./components/users/UsersContainer";
 
 
 
@@ -29,6 +31,7 @@ function App() {
                             <Route path="/Dialogs/*" element={<DialogsContainer/>}/>
                             <Route path='/Music' element={<Music/>}/>
                             <Route path='/News' element={<News/>}/>
+                            <Route path='/Users' element={<UsersContainer/>}/>
                             <Route path='/Settings' element={<Settings/>}/>
                         </Routes>
                     </div>
