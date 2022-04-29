@@ -16,6 +16,7 @@ export type InitialStateType = {
     message: MessageType []
     newMessageText: string
 }
+
 let initialState: InitialStateType = {
     dialogs: [
         {id: v1(), name: "Антон"},
@@ -48,23 +49,19 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     }
 };
 
-export type SendMessageType = {
-    type: "SEND-MESSAGE";
-};
-export type UpdateMessageTextType = {
-    type: "UPDATE-NEW-MESSAGE-TEXT";
-    newText: string;
-};
+export type SendMessageType = ReturnType<typeof sendMessageAC>
 
-export const sendMessageAC = (): ActionsType => {
+export type UpdateMessageTextType = ReturnType<typeof updateMessageTextAC>
+
+export const sendMessageAC = () => {
     return {
-        type: "SEND-MESSAGE",
-    };
+        type: "SEND-MESSAGE"
+    } as const
 };
 
-export const updateMessageTextAC = (text: string): ActionsType => {
+export const updateMessageTextAC = (text: string) => {
     return {
         type: "UPDATE-NEW-MESSAGE-TEXT",
         newText: text,
-    };
+    } as const
 };
