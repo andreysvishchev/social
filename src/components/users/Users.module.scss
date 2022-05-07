@@ -73,6 +73,10 @@
   }
 }
 
-
+.pagination__button {
+  &.selected {
+    font-size: 25px;
+  }
+}
 
 
