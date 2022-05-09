@@ -23,6 +23,9 @@ export const Navbar = () => {
                 <NavLink to="/Music" className={setActive}>Музыка</NavLink>
             </div>
             <div className={style.item}>
+                <NavLink to="/Users" className={setActive}>Найти друзей</NavLink>
+            </div>
+            <div className={style.item}>
                 <NavLink to="/Settings" className={setActive}>Настройки</NavLink>
             </div>
         </nav>

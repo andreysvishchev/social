@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType} from "./store";
+import {ActionsType} from "./redux-store";
 
 type MessageType = {
     id: string;
@@ -16,6 +16,7 @@ export type InitialStateType = {
     message: MessageType []
     newMessageText: string
 }
+
 let initialState: InitialStateType = {
     dialogs: [
         {id: v1(), name: "Антон"},
@@ -48,15 +49,19 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     }
 };
 
-export const sendMessageAC = (): ActionsType => {
+export type SendMessageType = ReturnType<typeof sendMessageAC>
+
+export type UpdateMessageTextType = ReturnType<typeof updateMessageTextAC>
+
+export const sendMessageAC = () => {
     return {
-        type: "SEND-MESSAGE",
-    };
+        type: "SEND-MESSAGE"
+    } as const
 };
 
-export const updateMessageTextAC = (text: string): ActionsType => {
+export const updateMessageTextAC = (text: string) => {
     return {
         type: "UPDATE-NEW-MESSAGE-TEXT",
         newText: text,
-    };
+    } as const
 };

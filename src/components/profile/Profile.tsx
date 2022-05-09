@@ -1,20 +1,21 @@
 import style from "./Profile.module.scss";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import React from "react";
-import bg from "../../img/bg.jpg";
 import {MyPostsContainer} from "./myPosts/MyPostsContainer";
+import {ProfileType} from "../../redux/profileReducer";
 
+type ProfilePropsType = {
+    profile: ProfileType
+}
 
-
-export const Profile = () => {
+export const Profile = (props: ProfilePropsType) => {
 
   return (
     <div className={style.profile}>
-      <img src={bg} alt="" className={style.profile__bg} />
-      <div className={style.profile__inner}>
-        <ProfileInfo />
+
+        <ProfileInfo profile={props.profile} />
         <MyPostsContainer />
-      </div>
+
     </div>
   );
 };

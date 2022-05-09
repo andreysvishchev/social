@@ -9,6 +9,9 @@ import {Route, Routes, BrowserRouter, Navigate} from "react-router-dom";
 import './App.scss';
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 
+import {UsersContainer} from "./components/users/UsersContainer";
+import ProfileContainer from "./components/profile/ProfileContainer";
+
 
 
 
@@ -25,10 +28,14 @@ function App() {
                     <div className="App__content">
                         <Routes>
                             <Route path='/' element={<Navigate to={ProfilePath}/>}/>
-                            <Route path='/Profile' element={<Profile/>}/>
+
+                            <Route path="/profile/:userId" element={<ProfileContainer />} />
+
+
                             <Route path="/Dialogs/*" element={<DialogsContainer/>}/>
                             <Route path='/Music' element={<Music/>}/>
                             <Route path='/News' element={<News/>}/>
+                            <Route path='/Users' element={<UsersContainer/>}/>
                             <Route path='/Settings' element={<Settings/>}/>
                         </Routes>
                     </div>
