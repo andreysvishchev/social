@@ -1,11 +1,11 @@
 import {combineReducers, createStore} from "redux";
-import {AddPostType, profileReducer, UpdatePostTextType} from "./profileReducer";
+import {AddPostType, profileReducer, setUserProfileType, UpdatePostTextType} from "./profileReducer";
 import {dialogsReducer, SendMessageType, UpdateMessageTextType} from "./dialogsReducer";
 import {
     FollowType,
     SetCurrentPageType,
     SetTotalUsersCountType,
-    SetUsersType,
+    SetUsersType, toggleIsFetchingType,
     UnfollowType,
     usersReducers
 } from "./usersReducer";
@@ -30,3 +30,5 @@ export type ActionsType =
     | SetUsersType
     | SetCurrentPageType
     | SetTotalUsersCountType
+    | toggleIsFetchingType
+    | setUserProfileType
