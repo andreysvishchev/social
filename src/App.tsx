@@ -1,7 +1,6 @@
 import React from 'react';
 import {Header} from "./components/header/Header";
 import {Navbar} from "./components/navbar/Navbar";
-import {Profile} from "./components/profile/Profile";
 import {Music} from "./components/music/Music";
 import {News} from "./components/news/News";
 import {Settings} from "./components/settings/Settings";
@@ -27,7 +26,7 @@ function App() {
                     <Navbar/>
                     <div className="App__content">
                         <Routes>
-                            <Route path='/' element={<Navigate to={ProfilePath}/>}/>
+                  {/*          <Route path='/:userId' element={<Navigate to={ProfilePath}/>}/>*/}
 
                             <Route path="/profile/:userId" element={<ProfileContainer />} />
 

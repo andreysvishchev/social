@@ -32,7 +32,7 @@ export type ProfileType = {
 export type InitialStateType = {
     posts: PostsType []
     newPostText: string
-   profile: ProfileType
+    profile: ProfileType
 }
 
 let initialState: InitialStateType = {
@@ -103,6 +103,6 @@ export let updatePostTextAC = (text: string) => {
 export let setUserProfile = (profile: ProfileType) => {
     return {
         type: 'SET-USER-PROFILE',
-       profile: profile
+        profile: profile
     } as const
 }

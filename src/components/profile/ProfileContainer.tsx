@@ -1,47 +1,28 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {ProfileType, setUserProfile} from "../../redux/profileReducer";
-import {ReactComponent} from "*.svg";
 
 
+const ProfileContainer = (props: UserProfileType) => {
 
-function withRouter(Component: any) {
-    function ComponentWithRouterProp(props: any) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
-    return ComponentWithRouterProp;
-}
+    const {userId} = useParams()
 
-class ProfileContainer extends React.Component <UserProfileType>{
-
-    componentDidMount() {
-
-       //let userId = this.props.router.params.userId ;
-
-        let userId = this.props.profile.userId ;
-
+    useEffect(()=> {
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
                 // debugger;
-                this.props.setUserProfile(response.data);
+                props.setUserProfile(response.data);
             });
-    }
+    },[])
 
-    render() {
+
+    {
         return (
-            <Profile profile={this.props.profile}/>
+            <Profile profile={props.profile}/>
         )
     }
 }
@@ -50,12 +31,11 @@ type mapStateToPropsType = {
     profile: ProfileType
 }
 type mapDispatchToPropsType = {
-    setUserProfile: (profile: ProfileType)=> void
+    setUserProfile: (profile: ProfileType) => void
 }
 
 
-
-export type UserProfileType =  mapStateToPropsType & mapDispatchToPropsType
+export type UserProfileType = mapStateToPropsType & mapDispatchToPropsType
 
 let mapStateToProps = (state: AppStateType) => {
     return {
@@ -63,5 +43,5 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer));
+export default connect(mapStateToProps, {setUserProfile})(ProfileContainer);
 
