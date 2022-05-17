@@ -28,9 +28,9 @@ class ProfileContainer extends React.Component <UserProfileType>{
 
     componentDidMount() {
 
-       //let userId = this.props.router.params.userId ;
+     let userId = this.props.router.params.userId ;
 
-        let userId = this.props.profile.userId ;
+
 
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
@@ -51,6 +51,7 @@ type mapStateToPropsType = {
 }
 type mapDispatchToPropsType = {
     setUserProfile: (profile: ProfileType)=> void
+    router: {location: any, navigate: any, params: {userId: string}}
 }
 
 
