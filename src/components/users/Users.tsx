@@ -2,7 +2,6 @@ import React from 'react';
 import style from "./Users.module.scss";
 import userAvatar from "../../img/userAvatar.png";
 import {UserType} from "../../redux/usersReducer";
-import loader from "../../img/loader.svg";
 import Preloader from "../common/preloader/Preloader";
 import {NavLink} from "react-router-dom";
 

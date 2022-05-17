@@ -10,6 +10,8 @@ import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 
 import {UsersContainer} from "./components/users/UsersContainer";
 import ProfileContainer from "./components/profile/ProfileContainer";
+import HeaderContainer from "./components/header/HeaderContainer";
+import Login from "./components/login/Login";
 
 
 
@@ -21,15 +23,16 @@ function App() {
     return (
         <BrowserRouter>
             <div className="App">
-                <Header/>
+              <HeaderContainer/>
                 <div className="App__inner">
                     <Navbar/>
                     <div className="App__content">
                         <Routes>
-                  {/*          <Route path='/:userId' element={<Navigate to={ProfilePath}/>}/>*/}
+                            <Route path='/' element={<Navigate to={ProfilePath}/>}/>
 
+                            <Route path="/profile" element={<ProfileContainer />} />
                             <Route path="/profile/:userId" element={<ProfileContainer />} />
-
+                            <Route path="/login" element={<Login/>}/>
 
                             <Route path="/Dialogs/*" element={<DialogsContainer/>}/>
                             <Route path='/Music' element={<Music/>}/>
