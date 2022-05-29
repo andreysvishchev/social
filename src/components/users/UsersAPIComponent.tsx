@@ -39,7 +39,7 @@ class UsersAPIComponent
                        unfollow={this.props.unfollow}
                        follow={this.props.follow}
                        isFetching={this.props.isFetching}
-                       toggleIsFollowProgress={this.props.toggleIsFetching}
+                       toggleIsFollowProgress={this.props.toggleIsFollowProgress}
                        followingIsProgress={this.props.followingIsProgress}
                 />
             </>

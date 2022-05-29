@@ -38,7 +38,6 @@ export const usersReducers = (state: InitialStateType = initialState, action: Ac
         case "FOLLOW":
             return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: true} : el)}
         case "UNFOLLOW":
-            console.log('unfolow')
             return {...state, users: state.users.map(el => el.id === action.userID ? {...el, followed: false} : el)}
         case "SET-USERS":
             return {...state, users: action.users}
@@ -49,9 +48,7 @@ export const usersReducers = (state: InitialStateType = initialState, action: Ac
         case "TOGGLE-IS-FETCHING":
             return {...state, isFetching: action.isFetching}
         case 'TOGGLE-IS-FOLLOW-PROGRESS':
-            console.log('toogle')
             return {...state, followingInProgress: action.isFetching}
-
 
         default:
 
