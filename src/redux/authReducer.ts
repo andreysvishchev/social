@@ -1,6 +1,6 @@
 import {ActionsType} from "./redux-store";
 
-type DataType = {
+export  type DataType = {
     id: null | number
     login: null | string
     email: null | string
@@ -31,7 +31,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
         case 'SET-USER-DATA':
             return {
                 ...state,
-                ...action.data,
+                data: {...action.data},
                 isAuth: true
             }
         default:

@@ -5,7 +5,7 @@ import {
     FollowType,
     SetCurrentPageType,
     SetTotalUsersCountType,
-    SetUsersType, toggleIsFetchingType,
+    SetUsersType, toggleIsFetchingType, ToggleIsFollowProgressType,
     UnfollowType,
     usersReducers
 } from "./usersReducer";
@@ -35,3 +35,4 @@ export type ActionsType =
     | toggleIsFetchingType
     | setUserProfileType
     | setUserDataActionType
+    | ToggleIsFollowProgressType

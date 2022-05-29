@@ -4,29 +4,26 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {setUserDataAC} from "../../redux/authReducer";
 import {AppStateType} from "../../redux/redux-store";
+import {auth} from "../../api/api";
 
 
 class HeaderContainer extends React.Component <AuthPropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(response => {
-                console.log(response.data)
-                if (response.data.resultCode === 0) {
-                    let {id, login, email} = response.data
+       auth()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    const {id, login, email} = data.data
                     this.props.setUserDataAC(id, login, email)
-                    console.log(this.props.setUserDataAC(id, login, email))
                 }
             })
     }
 
     render() {
-        return <Header {...this.props}/>
+        return <Header data={this.props.data} isAuth={this.props.isAuth} setUserDataAC={this.props.setUserDataAC} />
     }
 }
 
-export type AuthPropsType = MapStateToPropsType & MapDispatchToProps
+export type AuthPropsType = MapStateToPropsType & MapDispatchToPropsHeader
 
 type MapStateToPropsType = {
     data: {
@@ -34,13 +31,10 @@ type MapStateToPropsType = {
         login: null | string,
         email: null | string,
     },
-    messages: [],
-    fieldsErrors: [],
-    resultCode: number,
     isAuth: boolean
 }
 
-type MapDispatchToProps = {
+export type MapDispatchToPropsHeader = {
     setUserDataAC: (id: number, login: string, email: string) => void
 }
 
@@ -51,9 +45,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
             login: state.auth.data.login,
             email: state.auth.data.email,
         },
-        messages: state.auth.messages,
-        fieldsErrors: state.auth.fieldsErrors,
-        resultCode: state.auth.resultCode,
         isAuth: state.auth.isAuth
     }
 }

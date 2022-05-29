@@ -18,7 +18,7 @@ import Login from "./components/login/Login";
 
 function App() {
 
-    const ProfilePath = './Profile'
+    const ProfilePath = '/Profile'
 
     return (
         <BrowserRouter>
@@ -29,9 +29,10 @@ function App() {
                     <div className="App__content">
                         <Routes>
                             <Route path='/' element={<Navigate to={ProfilePath}/>}/>
-
-                            <Route path="/profile" element={<ProfileContainer />} />
+                            <Route path="/:userId" element={<ProfileContainer />} />
                             <Route path="/profile/:userId" element={<ProfileContainer />} />
+
+
                             <Route path="/login" element={<Login/>}/>
 
                             <Route path="/Dialogs/*" element={<DialogsContainer/>}/>
