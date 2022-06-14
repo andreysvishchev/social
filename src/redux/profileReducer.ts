@@ -1,39 +1,7 @@
 import {v1} from "uuid";
 import {ActionsType} from "./redux-store";
-
-type PostsType = {
-    id: string;
-    text: string;
-    likesCount: number;
-};
-
-export type ProfileType = {
-    aboutMe: null | string
-    contacts: {
-        facebook: null | string
-        website: null | string
-        vk: null | string
-        twitter: null | string
-        instagram: null | string
-        youtube: null | string
-        github: null | string
-        mainLink: null | string
-    },
-    lookingForAJob: boolean
-    lookingForAJobDescription: string | null
-    fullName: string | null
-    userId: number
-    photos: {
-        small: string | undefined
-        large: string | undefined
-    }
-}
-
-export type InitialStateType = {
-    posts: PostsType []
-    newPostText: string
-    profile: ProfileType
-}
+import {Dispatch} from "redux";
+import {usersApi} from "../api/api";
 
 let initialState: InitialStateType = {
     posts: [
@@ -81,28 +49,57 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
     }
 }
 
+// action
+export const addPostAC = () => {
+    return {type: 'ADD-POST'} as const
+}
+export const updatePostTextAC = (text: string) => {
+    return {type: 'UPDATE-NEW-POST-TEXT', newText: text} as const
+}
+export const setUserProfile = (profile: ProfileType) => {
+    return {type: 'SET-USER-PROFILE', profile: profile} as const
+}
+
+//thunk
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    usersApi.getProfile(userId)
+        .then((res) => {
+            dispatch(setUserProfile(res.data))
+        })
+}
+
+// types
 export type AddPostType = ReturnType<typeof addPostAC>
-
 export type UpdatePostTextType = ReturnType<typeof updatePostTextAC>
-
 export type setUserProfileType = ReturnType<typeof setUserProfile>
-
-export let addPostAC = () => {
-    return {
-        type: 'ADD-POST'
-    } as const
+type PostsType = {
+    id: string;
+    text: string;
+    likesCount: number;
+};
+export type ProfileType = {
+    aboutMe: null | string
+    contacts: {
+        facebook: null | string
+        website: null | string
+        vk: null | string
+        twitter: null | string
+        instagram: null | string
+        youtube: null | string
+        github: null | string
+        mainLink: null | string
+    },
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    fullName: string | null
+    userId: number
+    photos: {
+        small: string | undefined
+        large: string | undefined
+    }
 }
-
-export let updatePostTextAC = (text: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText: text
-    } as const
-}
-
-export let setUserProfile = (profile: ProfileType) => {
-    return {
-        type: 'SET-USER-PROFILE',
-        profile: profile
-    } as const
+export type InitialStateType = {
+    posts: PostsType []
+    newPostText: string
+    profile: ProfileType
 }

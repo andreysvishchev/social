@@ -1,25 +1,17 @@
 import React from "react";
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
-import {setUserDataAC} from "../../redux/authReducer";
+import {getAuthUserDataTC, setUserDataAC} from "../../redux/authReducer";
 import {AppStateType} from "../../redux/redux-store";
-import {auth} from "../../api/api";
 
 
 class HeaderContainer extends React.Component <AuthPropsType> {
     componentDidMount() {
-       auth()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    const {id, login, email} = data.data
-                    this.props.setUserDataAC(id, login, email)
-                }
-            })
+       this.props.getAuthUserDataTC()
     }
 
     render() {
-        return <Header data={this.props.data} isAuth={this.props.isAuth} setUserDataAC={this.props.setUserDataAC} />
+        return <Header data={this.props.data} isAuth={this.props.isAuth} />
     }
 }
 
@@ -35,7 +27,7 @@ type MapStateToPropsType = {
 }
 
 export type MapDispatchToPropsHeader = {
-    setUserDataAC: (id: number, login: string, email: string) => void
+    getAuthUserDataTC: ()=> void
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -49,5 +41,4 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-
-export default connect(mapStateToProps, {setUserDataAC})(HeaderContainer)
+export default connect(mapStateToProps, {getAuthUserDataTC})(HeaderContainer)
