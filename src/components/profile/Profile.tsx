@@ -1,21 +1,36 @@
 import style from "./Profile.module.scss";
-import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
-import React from "react";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import React, {useEffect} from "react";
 import {MyPostsContainer} from "./myPosts/MyPostsContainer";
-import {ProfileType} from "../../redux/profileReducer";
+import {getUserProfile, ProfileType} from "../../redux/profileReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatchType, AppStateType} from "../../redux/redux-store";
+import {Navigate, useParams} from "react-router-dom";
 
-type ProfilePropsType = {
-    profile: ProfileType
-}
 
-export const Profile = (props: ProfilePropsType) => {
 
-  return (
-    <div className={style.profile}>
+export const Profile = () => {
 
-        <ProfileInfo profile={props.profile} />
-        <MyPostsContainer />
+    const {userId} = useParams()
+    const dispatch = useDispatch<AppDispatchType>()
+    const profile = useSelector<AppStateType, ProfileType>(state => state.profilePage.profile)
+    const isAuth = useSelector<AppStateType >(state => state.auth.isAuth)
 
-    </div>
-  );
+    useEffect(() => {
+        if (userId) {
+            dispatch(getUserProfile(userId))
+        }
+    }, [])
+
+
+    if(!isAuth) return <Navigate to={'/login'}/>
+
+    return (
+        <div className={style.profile}>
+
+            <ProfileInfo profile={profile}/>
+            <MyPostsContainer/>
+
+        </div>
+    );
 };

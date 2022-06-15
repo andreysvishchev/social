@@ -3,6 +3,7 @@ import style from "./Dialogs.module.scss";
 import {Dialog} from "./dialog/Dialog";
 import {Message} from "./message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Navigate} from "react-router-dom";
 
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -27,6 +28,8 @@ export const Dialogs = (props: DialogsPropsType) => {
         let body = e.target.value;
         props.onMessageChange(body)
     };
+
+    if(!props.isAuth) return <Navigate to={'/login'}/>
 
     return (
         <div className={style.inner}>

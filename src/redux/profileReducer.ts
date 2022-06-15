@@ -24,7 +24,7 @@ let initialState: InitialStateType = {
         lookingForAJob: true,
         lookingForAJobDescription: "не ищу, а дурачусь",
         fullName: "samurai dimych",
-        userId: 2,
+        userId: '2',
         photos: {
             small: "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",
             large: "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"
@@ -92,7 +92,7 @@ export type ProfileType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string | null
-    userId: number
+    userId: string
     photos: {
         small: string | undefined
         large: string | undefined
